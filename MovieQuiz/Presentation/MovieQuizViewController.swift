@@ -2,7 +2,7 @@ import UIKit
 
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
-    private var alertPresenter: AlertPresenterProtokol
+    private var alertPresenter: AlertPresenterProtokol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,6 +97,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
                 self.correctAnswers = 0
                 self.questionFactory?.requestNextQuestion()
             }
+            )
             alertPresenter?.show(whit: alertModel )
     }
             
