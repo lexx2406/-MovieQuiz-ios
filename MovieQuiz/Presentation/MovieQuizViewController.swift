@@ -18,7 +18,126 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         questionFactory?.requestNextQuestion()
         alertPresenter = AlertPresenter(viewController: self)
         
+        
+        /*
+         var documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fileName = "inception.json"
+        documentsURL.appendPathComponent(fileName)
+        _ = try? String(contentsOf: documentsURL)
+        
+        struct Actor: Codable {
+            let id: String
+            let image: String
+            let name: String
+            let asCharacter: String
+        }
+        struct Movie: Codable {
+            let id: String
+            let title: String
+            let year: String
+            let image: String
+            let releaseDate: String
+            let runtimeMins: String
+            let directors: String
+            let actorList: [Actor]
+            init(from decoder: Decoder) throws {
+                let container = try decoder.container(keyedBy: CodingKeys.self)
+                
+            }
+            enum CodingKeys: CodingKey {
+               case id, title, year, image, releaseDate, runtimeMins, directors, actorList
+             }
+        }
+        
+        func jsonObject(with data: Data, options opt: JSONSerialization.ReadingOptions = []) throws -> Any {
+            do {
+                _ = try JSONDecoder().decode(Movie.self, from: data)
+            } catch {
+                print("Failed to parse: \(error.localizedDescription)")
+            }
+        }
+        
+        let movieData = try JSONEncoder().encode(movie)
+        */
+    
+        /*
+         class func jsonObject(with data: Data, options opt: JSONSerialization.ReadingOptions = []) throws -> Any
+        do {
+            let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            guard let data = jsonString.data(using: .utf8) else {
+                return
+            }            let title = json?["title"]
+            let year = json?["year"]
+            print(json)
+            let actorList = json?["actorList"] as? [Any]
+            {
+                print(actor["asCharacter"])
+            }
+        }
+    } catch {
+        print("Failed to parse: \(jsonString)")
     }
+
+    struct Actor {
+        let id: String
+        let image: String
+        let name: String
+        let asCharacter: String
+    }
+    struct Movie {
+        let id: String
+        let title: String
+        let year: Int
+        let image: String
+        let releaseDate: String
+        let runtimeMins: Int
+        let directors: String
+        let actorList: [Actor]
+    }
+    
+    
+    func getMovie(from jsonString: String) -> Movie? {
+        var movie:Movie? = nil
+        
+        do {
+            guard let data = jsonString.data(using: .utf8) else {
+                return
+            }
+            let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            guard let json = json,
+                  let id = json ["id"] as? String,
+                  let title = json ["title"] as? String,
+                  let year = json ["year"] as? String,
+                  let image = json ["image"] as? String,
+                  let releaseDate = json ["releaseDate"] as? String,
+                  let runtimeMins = json Int["runtimeMins"] as?,
+                  let directors = json ["directors"] as? String,
+                  let actorList = json ["actorList"] as? Any, else
+            {
+                  return nil
+                }
+            movie = Movie(
+                id: String,
+                title: String,
+                year: Int,
+                image: String,
+                releaseDate: String,
+                runtimeMins: Int,
+                directors: String,
+                actorList: [Actor])
+            
+        } catch {
+            
+            print("Failed to parse: \(jsonString)")
+            
+        }
+    }
+    
+        return movie
+    }
+         */
+
+}
     
    /*
     // MARK: - QuestionFactoryDelegate
@@ -243,7 +362,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             self?.show(quiz: viewModel)
         }
     }
-    
 }
 
 
