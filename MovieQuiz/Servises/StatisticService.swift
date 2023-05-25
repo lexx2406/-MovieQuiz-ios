@@ -17,8 +17,11 @@ protocol StatisticService {
 
 struct GameRecord: Codable, Comparable {
     static func < (lhs: GameRecord, rhs: GameRecord) -> Bool {
-        <#code#>
+        if lhs.correct < rhs.correct {
+            return true
+        }
     }
+    
    let correct: Int
    let total: Int
    let date: Date
