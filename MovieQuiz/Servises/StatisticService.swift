@@ -35,11 +35,12 @@ final class StatisticServiceImplementation: StatisticService {
     }
     
     var gamesCount: Int {
-        get { ount }
-        set { let count = UserDefaults.standard.integer(forKey:"gamesCount") + 1
-            //count = 0 //для обнуления раскоментировать строку
-            UserDefaults.standard.set(count, forKey: "gamesCount")
+        get { resultCount() }
+        set { func resultCount() -> Int {
+            let count = UserDefaults.standard.integer(forKey:"gamesCount") + 1
+            //count = 0 //для обнуления раскоме
             return count
+        }
             }
             
         UserDefaults.standard.set(count, forKey: "gamesCount")
@@ -70,14 +71,14 @@ final class StatisticServiceImplementation: StatisticService {
     
 }
 
-/*
+
 func resultCount() -> Int {
     let count = UserDefaults.standard.integer(forKey:"gamesCount") + 1
     //count = 0 //для обнуления раскоментировать строку
     UserDefaults.standard.set(count, forKey: "gamesCount")
     return count
 }
-*/
+
     
     func totalAccuracyСalculation(answers:Int,questions:Int,count:Int ) -> String {
         

@@ -81,8 +81,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     private func showNextQuestionOrResults() {
         if currentQuestionIndex == questionsAmount - 1 {
-            store(correct count:
-            gamesCount = resultCount()
+            gamesCount = 
             let text = correctAnswers == questionsAmount ?
             "Поздравляем, Вы ответили на 10 из 10! \n Количество сыгранных квизов: \(gamesCount) \n Средняя точность \(totalAccuracyСalculation(answers: correctAnswers, questions: questionsAmount, count: gamesCount))%" :
             "Ваш результат: \(correctAnswers)/10 \n Количество сыгранных квизов: \(gamesCount) \n Средняя точность \(totalAccuracyСalculation(answers: correctAnswers, questions: questionsAmount, count:gamesCount))%"
