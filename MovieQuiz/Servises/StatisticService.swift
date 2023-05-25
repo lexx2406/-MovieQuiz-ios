@@ -25,19 +25,20 @@ struct GameRecord: Codable, Comparable {
 }
 
 final class StatisticServiceImplementation: StatisticService {
-    
     func store(correct count: Int, total amount: Int) {
     }
+    
     var totalAccuracy: Double {
         get {UserDefaults.standard.double(forKey: Keys.gamesCount.rawValue),
             statisticService?.totalAccuracy ?? 0.0}
     }
     
     
-    var gamesCount: Int { get { UserDefaults.standard.integer(forKey: "gamesCount") } set { UserDefaults.set.integer(forKey: Keys.gamesCount.rawValue) } }
+    var gamesCount: Int { get { UserDefaults.standard.integer(forKey: Keys.gamesCount.rawValue)} set { UserDefaults.set(integer, forKey: Keys.gamesCount.rawValue)}
         
-        UserDefaults.standard.integer(forKey: Keys.gamesCount.rawValue)
     }
+    
+
     var bestGame: GameRecord {
         get {
             guard let data = UserDefaults.data(forKey: Keys.bestGame.rawValue),
