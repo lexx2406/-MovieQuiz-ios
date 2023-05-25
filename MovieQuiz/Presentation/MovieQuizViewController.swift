@@ -56,8 +56,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var gamesCount = 0
-    
-    
+    private var statisticService: StatisticService?
     
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         QuizStepViewModel(
@@ -83,8 +82,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         if currentQuestionIndex == questionsAmount - 1 {
             gamesCount += 1
             let text = correctAnswers == questionsAmount ?
-            "Поздравляем, Вы ответили на 10 из 10! \n Количество сыгранных квизов: \(gamesCount) \n Средняя точность \(totalAccuracy)" :
-            "Ваш результат: \(correctAnswers)/10 \n Количество сыгранных квизов: \(gamesCount) \n Средняя точность \(totalAccuracy)"
+            "Поздравляем, Вы ответили на 10 из 10! \n Количество сыгранных квизов: \(gamesCount) \n Средняя точность \(statisticService?.totalAccuracy ?? 0.0)" :
+            "Ваш результат: \(correctAnswers)/10 \n Количество сыгранных квизов: \(gamesCount) \n Средняя точность \(statisticService?.totalAccuracy ?? 0.0)"
             let viewModel = QuizResultsViewModel(
                 title: "Этот раунд окончен!",
                 text: text,
