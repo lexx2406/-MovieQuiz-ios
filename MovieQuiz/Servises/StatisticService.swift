@@ -7,23 +7,79 @@
 
 import UIKit
 
-private var totalAccuracy = 0.00
+var totalAccuracy = 0.00
 
 protocol StatisticService {
     func store(correct count: Int, total amount: Int)
     var totalAccuracy: Double { get }
     var gamesCount: Int { get }
+    var bestGame: GameRecord { get }
+}
+
+struct GameRecord: Codable, Comparable {
+    static func < (lhs: GameRecord, rhs: GameRecord) -> Bool {
+        <#code#>
+    }
+   let correct: Int
+   let total: Int
+   let date: Date
+}
+
+final class StatisticServiceImplementation: StatisticService {
+    func store(correct count: Int, total amount: Int) {
+        <#code#>
+    }
+    
+    var totalAccuracy: Double {
+        
+    }
+    
+    var gamesCount: Int {
+        get { ount }
+        set { let count = UserDefaults.standard.integer(forKey:"gamesCount") + 1
+            //count = 0 //для обнуления раскоментировать строку
+            UserDefaults.standard.set(count, forKey: "gamesCount")
+            return count
+            }
+            
+        UserDefaults.standard.set(count, forKey: "gamesCount")
+        }
+    
+     var bestGame: GameRecord {
+        get {
+            guard let data = userDefaults.data(forKey: Keys.bestGame.rawValue),
+            let record = try? JSONDecoder().decode(GameRecord.self, from: data) else {
+                return .init(correct: 0, total: 0, date: Date())
+            }
+            
+            return record
+        }
+        
+        set {
+            guard let data = try? JSONEncoder().encode(newValue) else {
+                print("Невозможно сохранить результат")
+                return
+            }
+            
+            userDefaults.set(data, forKey: Keys.bestGame.rawValue)
+        }
+    }
+    private enum Keys: String {
+        case correct, total, bestGame, gamesCount
+    }
     
 }
-    
+
+/*
 func resultCount() -> Int {
-    var count = UserDefaults.standard.integer(forKey:"gamesCount") + 1
+    let count = UserDefaults.standard.integer(forKey:"gamesCount") + 1
+    //count = 0 //для обнуления раскоментировать строку
     UserDefaults.standard.set(count, forKey: "gamesCount")
     return count
 }
-
+*/
     
-    func totalAccuracyСalculation(answers:Int,questions:Int,count:Int ) -> Double {
+    func totalAccuracyСalculation(answers:Int,questions:Int,count:Int ) -> String {
         
         if count == 1 {
             totalAccuracy = (Double(answers))/(Double(questions))*100
@@ -32,44 +88,10 @@ func resultCount() -> Int {
             totalAccuracy = (((Double(answers))/(Double(questions))*100) + (UserDefaults.standard.double(forKey:"Accuracy")) * Double(count - 1))/((Double(count)))
                     
         }
-                                     
+        //totalAccuracy = 0 //для обнуления раскоментировать строку
     UserDefaults.standard.set(totalAccuracy, forKey: "Accuracy")
                                      
-    return totalAccuracy
+        return String(format: "%.2f", totalAccuracy)
     
 }
     
-var bestGame: GameRecord { get }
-
-final class StatisticServiceImplementation: StatisticService {
-    
-    func store(correct count: Int, total amount: Int) {
-        userDefaults.set(Any?, forKey: String)
-    }
-    private let userDefaults = UserDefaults.standard
-    
-    var totalAccuracy: Double
-    
-    var gamesCount: Int
-    
-    var bestGame: GameRecord
-    
-    internal init(totalAccuracy: Double, gamesCount: Int, bestGame: GameRecord) {
-        self.totalAccuracy = totalAccuracy
-        self.gamesCount = gamesCount
-        self.bestGame = bestGame
-    }
-}
-
-struct GameRecord: Codable, Comparable {
-    let correct: Int
-    let total: Int
-    let date: Date
-    static func < (lhs: GameRecord, rhs: GameRecord) -> Bool {
-        if lhs.correct < rhs.correct {
-            let lhs = rhs
-        }
-    }
-     
-     }
-     
