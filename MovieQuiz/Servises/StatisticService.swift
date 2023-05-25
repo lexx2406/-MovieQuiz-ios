@@ -39,7 +39,7 @@ final class StatisticServiceImplementation: StatisticService {
             //var correctCount = UserDefaults.standard.integer(forKey: Keys.correct.rawValue),
             //(statisticService?.totalAccuracy ?? 0.0)
             // UserDefaults.standard.double(forKey: Keys.gamesCount.rawValue)
-        var totalAccuracyCount = (Double(correctCount)/Double(gamesCount))*100?
+            let totalAccuracyCount = (Double(correctCount)/Double(gamesCount))*100
          return totalAccuracyCount         }
         set {
             UserDefaults.standard.set(newValue, forKey: Keys.total.rawValue)
@@ -48,7 +48,7 @@ final class StatisticServiceImplementation: StatisticService {
 
     
     var gamesCount: Int {
-            get {
+        get {
                 UserDefaults.standard.integer(forKey: Keys.gamesCount.rawValue)
                 
             }
