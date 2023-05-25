@@ -82,8 +82,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         if currentQuestionIndex == questionsAmount - 1 {
             gamesCount += 1
             let text = correctAnswers == questionsAmount ?
-            "Поздравляем, Вы ответили на 10 из 10! \n Количество сыгранных квизов: \(gamesCount)\n Рекорд: \(totalAccuracy.bestGame) \n Средняя точность: \(statisticService?.totalAccuracy ?? 0.0)" :
-            "Ваш результат: \(correctAnswers)/10 \n Количество сыгранных квизов: \(gamesCount) \n Рекорд: \(totalAccuracy.bestGame)) \n Средняя точность: \(statisticService?.totalAccuracy ?? 0.0)"
+            "Поздравляем, Вы ответили на 10 из 10! \n Количество сыгранных квизов: \(gamesCount)\n Рекорд: \(statisticService?.bestGame)  \n Средняя точность: \(statisticService?.totalAccuracy)" :
+            "Ваш результат: \(correctAnswers)/10 \n Количество сыгранных квизов: \(gamesCount) \n Рекорд: \(statisticService?.bestGame)  \n Средняя точность: \(statisticService?.totalAccuracy)"
             let viewModel = QuizResultsViewModel(
                 title: "Этот раунд окончен!",
                 text: text,

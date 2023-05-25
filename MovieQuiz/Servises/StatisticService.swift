@@ -34,12 +34,15 @@ final class StatisticServiceImplementation: StatisticService {
     var totalAccuracy: Double {
         get {
             UserDefaults.standard.double(forKey: Keys.gamesCount.rawValue)
-            var correctCount = UserDefaults.standard.integer(forKey: Keys.correct.rawValue)
-            statisticService?.totalAccuracy ?? 0.0
-            return (Double(correctCount))/Double(gamesCount)) * 100.0
+            let correctCount = UserDefaults.standard.integer(forKey: Keys.correct.rawValue)
+            //(statisticService?.totalAccuracy ?? 0.0)
+            //var correctCount = UserDefaults.standard.integer(forKey: Keys.correct.rawValue),
+            //(statisticService?.totalAccuracy ?? 0.0),
+            //return (Double(correctCount))/Double(gamesCount)) * 100.0
+            // UserDefaults.standard.double(forKey: Keys.gamesCount.rawValue)
+            return (Double(correctCount)/Double(gamesCount))*100
+            
         }
-
-        //return 0
     }
 
     
@@ -77,27 +80,3 @@ final class StatisticServiceImplementation: StatisticService {
         case correct, total, bestGame, gamesCount
     }
 }
-/*
- func resultCount() -> Int {
-    let count = UserDefaults.standard.integer(forKey:"gamesCount") + 1
-    //count = 0 //для обнуления раскоментировать строку
-    UserDefaults.standard.set(count, forKey: "gamesCount")
-    return count
-}
-
-     func totalAccuracyСalculation(answers:Int,questions:Int,count:Int ) -> String {
-        
-        if count == 1 {
-            totalAccuracy = (Double(answers))/(Double(questions))*100
-            
-        } else {
-            totalAccuracy = (((Double(answers))/(Double(questions))*100) + (UserDefaults.standard.double(forKey:"Accuracy")) * Double(count - 1))/((Double(count)))
-                    
-        }
-        //totalAccuracy = 0 //для обнуления раскоментировать строку
-    UserDefaults.standard.set(totalAccuracy, forKey: "Accuracy")
-                                     
-        return String(format: "%.2f", totalAccuracy)
-    
-}
-    */
