@@ -7,8 +7,6 @@
 
 import UIKit
 
-
-
 protocol StatisticService {
     func store(correct count: Int, total amount: Int)
     var totalAccuracy: Double { get }
@@ -26,6 +24,8 @@ struct GameRecord: Codable, Comparable {
 }
 
 final class StatisticServiceImplementation: StatisticService {
+    
+   
     func store(correct count: Int, total amount: Int) {
     }
     
@@ -34,10 +34,13 @@ final class StatisticServiceImplementation: StatisticService {
     var totalAccuracy: Double {
         get {
             UserDefaults.standard.double(forKey: Keys.gamesCount.rawValue)
+            var correctCount = UserDefaults.standard.integer(forKey: Keys.correct.rawValue)
             statisticService?.totalAccuracy ?? 0.0
-            return (Double(correct)/Double(gamesCount)) * 100.0
-                    }
-                    }
+            return (Double(correctCount))/Double(gamesCount)) * 100.0
+        }
+
+        //return 0
+    }
 
     
     var gamesCount: Int {
