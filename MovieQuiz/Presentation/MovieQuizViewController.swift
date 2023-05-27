@@ -18,7 +18,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         
         questionFactory?.requestNextQuestion()
         alertPresenter = AlertPresenter(viewController: self)
-        statisticService = StatisticServiceImplementation()
+        statisticService = StatisticServiceImpl()
         
     }
         
@@ -81,9 +81,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private func showNextQuestionOrResults() {
         if currentQuestionIndex == questionsAmount - 1 {
             gamesCount += 1
+            //let newGame = GameRecord(correct: correctAnswers, total: questionsAmount, date: Date())
+            
             let text = correctAnswers == questionsAmount ?
-            "Поздравляем, Вы ответили на 10 из 10! \n Количество сыгранных квизов: \(gamesCount)\n Рекорд: \(statisticService!.bestGame.correct)/\(statisticService!.bestGame.total) (\(statisticService!.bestGame.date ))  \n Средняя точность: \(statisticService?.totalAccuracy ?? 0.00)%":
-            "Ваш результат: \(correctAnswers)/10 \n Количество сыгранных квизов: \(gamesCount) \n Рекорд:\(statisticService!.bestGame.correct)/\(statisticService!.bestGame.total) (\(statisticService!.bestGame.date )) \n Средняя точность: \(statisticService?.totalAccuracy ?? 0.00)%"
+            "Поздравляем, Вы ответили на 10 из 10! \n Количество сыгранных квизов: \(statisticService?.gamesCount ?? <#default value#>) \n Рекорд: \( statisticService?.bestGame?.correct ?? 0))/\(statisticService?.bestGame?.total ?? 0)) (\(String(describing: statisticService?.bestGame?.date)))  \n Средняя точность: \(statisticService?.accuracy ?? 0.00)%":
+            "Ваш результат: \(correctAnswers)/10 \n Количество сыгранных квизов: \(statisticService?.gamesCount ?? 0) \n Рекорд:\( statisticService?.bestGame?.correct ?? 0))/\(statisticService?.bestGame?.total ?? 0)) (\(String(describing: statisticService?.bestGame?.date))) \n Средняя точность: \(statisticService.accuracy)%"
             let viewModel = QuizResultsViewModel(
                 title: "Этот раунд окончен!",
                 text: text,
@@ -102,7 +104,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     private func show(quiz result: QuizResultsViewModel) {
-        let alertModel = AlertModel(
+        //TODO: call alertPresenter
+        
+        /*
+         let alertModel = AlertModel(
             title: result.title,
             message: result.text,
             buttonText: result.buttonText,
@@ -118,7 +123,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             )
             alertPresenter?.show(whit: alertModel )
     }
-            
+     */
             
 
     private func showAnswerResult(isCorrect: Bool) {

@@ -6,12 +6,40 @@
 //
 
 import UIKit
-protocol AlertPresenterProtokol: AnyObject {
-    func show(whit model: AlertModel)
+protocol AlertPresenter: {
+    func show(alertModel: AlertModel)
     }
 
 
-class AlertPresenter: AlertPresenterProtokol {
+final class AlertPresenter: AlertPresenterImpl {
+    
+}
+
+extension AlertPresenterImpl: AlertPresenter {
+    func show(alertModel:AlertModel) {
+        let alert = UIAlertController(
+            title: alertModel.title,
+            message: alertModel.text,
+            preferredStyle: .alert
+        )
+        let action = UIAlertAction(title: alertModel.buttonText, style: .default) { [weak self] _ in
+            guard let self = self else { return }
+        
+            alertModel.buttonAction()
+            self.currentQuestionIndex = 0
+            self.correctAnswer = 0
+            self.questionFactory?.requestNextQuestion()
+        
+    }
+    
+}
+
+
+
+
+
+/*
+ {
     private weak var viewController:UIViewController?
     
     init(viewController: UIViewController? ) {
@@ -29,4 +57,4 @@ class AlertPresenter: AlertPresenterProtokol {
         viewController?.present(alert, animated: true, completion: nil)
     }
 }
-
+*/
