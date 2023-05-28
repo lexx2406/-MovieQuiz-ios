@@ -27,10 +27,10 @@ final class StatisticServiceImpl {
     private let dateProvider: () -> Date
     
     init(
-userDefaults: UserDefaults = .standard,
-decoder: JSONDecoder = JSONDecoder(),
-encoder: JSONEncoder = JSONEncoder(),
-dateProvider: @escaping () -> Date = { Date()}
+        userDefaults: UserDefaults = .standard,
+        decoder: JSONDecoder = JSONDecoder(),
+        encoder: JSONEncoder = JSONEncoder(),
+        dateProvider: @escaping () -> Date = { Date()}
     ) {
         self.userDefaults = userDefaults
         self.decoder = decoder
@@ -38,7 +38,7 @@ dateProvider: @escaping () -> Date = { Date()}
         self.dateProvider = dateProvider
     }
 }
-    
+
 extension StatisticServiceImpl: StatisticService {
     var gamesCount: Int {
         get {

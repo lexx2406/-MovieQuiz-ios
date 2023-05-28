@@ -20,6 +20,6 @@ extension BestGame: Comparable {
         return Double(correct)/Double(total)
     }
     static func < (lhs: BestGame, rhs: BestGame) -> Bool {
-            lhs.accuracy < rhs.accuracy
-        }
+        lhs.accuracy < rhs.accuracy
+    }
 }
