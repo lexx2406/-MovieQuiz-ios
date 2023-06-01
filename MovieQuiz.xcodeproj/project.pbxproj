@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A80517162A28AB5300FC3FE4 /* MostPopularMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80517152A28AB5200FC3FE4 /* MostPopularMovies.swift */; };
+		A80517182A28AD5900FC3FE4 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80517172A28AD5900FC3FE4 /* NetworkClient.swift */; };
 		A80D9ED62A01228C00CD563F /* YS Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A80D9ED42A01228C00CD563F /* YS Display-Bold.ttf */; };
 		A80D9ED72A01228C00CD563F /* YS Display-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A80D9ED52A01228C00CD563F /* YS Display-Medium.ttf */; };
 		A82555FA2A20E74200825E3B /* BestGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82555F92A20E74100825E3B /* BestGame.swift */; };
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		A80517152A28AB5200FC3FE4 /* MostPopularMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostPopularMovies.swift; sourceTree = "<group>"; };
+		A80517172A28AD5900FC3FE4 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		A80D9ED42A01228C00CD563F /* YS Display-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Bold.ttf"; sourceTree = "<group>"; };
 		A80D9ED52A01228C00CD563F /* YS Display-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Medium.ttf"; sourceTree = "<group>"; };
 		A82555F92A20E74100825E3B /* BestGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestGame.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				A8807AF42A15E7CD00FA641B /* QuestionFactoryProtocol.swift */,
 				A8807AF62A15E9D200FA641B /* QuestionFactoryDelegate.swift */,
 				A87B7AEF2A1B18EA00749D73 /* StatisticService.swift */,
+				A80517172A28AD5900FC3FE4 /* NetworkClient.swift */,
 			);
 			path = Servises;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				A8A16E1C2A16D7C600C1CACD /* AlertPresenter.swift in Sources */,
 				A8A16E1A2A16D79D00C1CACD /* AlertModel.swift in Sources */,
 				AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */,
+				A80517182A28AD5900FC3FE4 /* NetworkClient.swift in Sources */,
 				A8807AF52A15E7CD00FA641B /* QuestionFactoryProtocol.swift in Sources */,
 				A8807AF72A15E9D200FA641B /* QuestionFactoryDelegate.swift in Sources */,
 				AD1ABAB62831907B00B3E448 /* MovieQuizViewController.swift in Sources */,
