@@ -94,9 +94,8 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="aaD-PE-cYE">
-                                <rect key="frame" x="156" y="436" width="116.66666666666667" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Zwf-B9-v5q" userLabel="Activity Indicator">
+                                <rect key="frame" x="205" y="456" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -105,10 +104,13 @@
                             <constraint firstItem="e4d-ug-EyY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="GiS-mu-x59"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="e4d-ug-EyY" secondAttribute="trailing" constant="20" id="Kow-Ei-n5T"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="e4d-ug-EyY" secondAttribute="bottom" constant="10" id="XRw-AE-s1o"/>
+                            <constraint firstItem="Zwf-B9-v5q" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="pJk-au-xnc"/>
+                            <constraint firstItem="Zwf-B9-v5q" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pbO-p0-hWe"/>
                             <constraint firstItem="e4d-ug-EyY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="sDo-UY-bnh"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="Zwf-B9-v5q" id="A4o-fJ-Eac"/>
                         <outlet property="counterLabel" destination="XpI-pD-zGo" id="chk-0n-MfX"/>
                         <outlet property="imageView" destination="s8n-l8-NqK" id="HVa-T4-l4e"/>
                         <outlet property="labelQuestion" destination="CDc-ol-eeh" id="eJu-Su-Pln"/>
