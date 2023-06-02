@@ -129,7 +129,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         let viewModel = convert(model: question)
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
+            self?.noButton.isEnabled = true
+            self?.yesButton.isEnabled = true
         }
+        
     }
     
     private func showFinalResults(){
@@ -177,6 +180,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
+            self.noButton.isEnabled = false
+            self.yesButton.isEnabled = false
             self.questionFactory?.loadData()
             
             
