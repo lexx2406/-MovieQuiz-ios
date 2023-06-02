@@ -10,7 +10,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         showNetworkError(message: error.localizedDescription)
     }
     
-    
     @IBOutlet weak private var noButton: UIButton!
     @IBOutlet weak private var yesButton: UIButton!
     @IBOutlet weak private var imageView: UIImageView!
@@ -37,10 +36,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     @IBOutlet weak private var labelQuestion: UILabel!
-    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
-    
-    
-    
     
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
