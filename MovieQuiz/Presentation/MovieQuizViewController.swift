@@ -95,11 +95,14 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             yesButton.isEnabled = true
             
         } else {
+            
             currentQuestionIndex += 1
             questionFactory?.requestNextQuestion()
             imageView.layer.borderColor = nil
             noButton.isEnabled = true
             yesButton.isEnabled = true
+            
+            
         }
     }
     
@@ -129,8 +132,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         let viewModel = convert(model: question)
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
-            self?.noButton.isEnabled = true
-            self?.yesButton.isEnabled = true
+            //self?.noButton.isEnabled = true
+            //self?.yesButton.isEnabled = true
         }
         
     }
@@ -180,9 +183,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
-            self.noButton.isEnabled = false
-            self.yesButton.isEnabled = false
+            //self.noButton.isEnabled = false
+            //self.yesButton.isEnabled = false
+            self.questionFactory?.requestNextQuestion()
             self.questionFactory?.loadData()
+            
             
             
         }
