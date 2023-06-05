@@ -178,8 +178,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             guard let self = self else { return }
            
             
-            self.currentQuestionIndex = 0
-            self.correctAnswers = 0
+            //self.currentQuestionIndex = 0
+            //self.correctAnswers = 0
             self.noButton.isEnabled = false
             self.yesButton.isEnabled = false
             self.questionFactory?.loadData()
