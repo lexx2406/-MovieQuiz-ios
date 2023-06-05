@@ -38,7 +38,10 @@ struct MostPopularMovie: Codable {
 
 
 
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> b1e2f92b6fa08e79ad68f23aceed538f939fd773

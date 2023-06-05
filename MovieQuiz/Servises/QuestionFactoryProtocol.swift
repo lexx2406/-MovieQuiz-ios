@@ -10,5 +10,9 @@ import Foundation
 protocol QuestionFactoryProtocol {
     func requestNextQuestion()
     func loadData()
+<<<<<<< HEAD
 }
+=======
+} 
+>>>>>>> b1e2f92b6fa08e79ad68f23aceed538f939fd773
 

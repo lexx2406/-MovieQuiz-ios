@@ -10,7 +10,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         showNetworkError(message: error.localizedDescription)
     }
     
+<<<<<<< HEAD
     
+=======
+>>>>>>> b1e2f92b6fa08e79ad68f23aceed538f939fd773
     @IBOutlet weak private var noButton: UIButton!
     @IBOutlet weak private var yesButton: UIButton!
     @IBOutlet weak private var imageView: UIImageView!
@@ -38,7 +41,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     @IBOutlet weak private var labelQuestion: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+<<<<<<< HEAD
     
+=======
+>>>>>>> b1e2f92b6fa08e79ad68f23aceed538f939fd773
     
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
@@ -176,6 +182,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
                                     buttonText: "Попробовать еще раз",
                                     buttonAction: { [weak self] in
             guard let self = self else { return }
+<<<<<<< HEAD
            
             
             self.currentQuestionIndex = 0
@@ -185,6 +192,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             self.questionFactory?.loadData()
             
             
+=======
+            
+            self.currentQuestionIndex = 0
+            self.correctAnswers = 0
+            self.questionFactory?.requestNextQuestion()
+>>>>>>> b1e2f92b6fa08e79ad68f23aceed538f939fd773
         }
         )
         
