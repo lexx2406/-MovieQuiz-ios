@@ -10,10 +10,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         showNetworkError(message: error.localizedDescription)
     }
     
-<<<<<<< HEAD
     
-=======
->>>>>>> b1e2f92b6fa08e79ad68f23aceed538f939fd773
     @IBOutlet weak private var noButton: UIButton!
     @IBOutlet weak private var yesButton: UIButton!
     @IBOutlet weak private var imageView: UIImageView!
@@ -41,10 +38,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     @IBOutlet weak private var labelQuestion: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
-<<<<<<< HEAD
     
-=======
->>>>>>> b1e2f92b6fa08e79ad68f23aceed538f939fd773
     
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
@@ -101,11 +95,14 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             yesButton.isEnabled = true
             
         } else {
+            
             currentQuestionIndex += 1
             questionFactory?.requestNextQuestion()
             imageView.layer.borderColor = nil
             noButton.isEnabled = true
             yesButton.isEnabled = true
+            
+            
         }
     }
     
@@ -135,8 +132,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         let viewModel = convert(model: question)
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
-            self?.noButton.isEnabled = true
-            self?.yesButton.isEnabled = true
+            //self?.noButton.isEnabled = true
+            //self?.yesButton.isEnabled = true
         }
         
     }
@@ -182,22 +179,17 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
                                     buttonText: "Попробовать еще раз",
                                     buttonAction: { [weak self] in
             guard let self = self else { return }
-<<<<<<< HEAD
            
             
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
-            self.noButton.isEnabled = false
-            self.yesButton.isEnabled = false
+            //self.noButton.isEnabled = false
+            //self.yesButton.isEnabled = false
+            self.questionFactory?.requestNextQuestion()
             self.questionFactory?.loadData()
             
             
-=======
             
-            self.currentQuestionIndex = 0
-            self.correctAnswers = 0
-            self.questionFactory?.requestNextQuestion()
->>>>>>> b1e2f92b6fa08e79ad68f23aceed538f939fd773
         }
         )
         
