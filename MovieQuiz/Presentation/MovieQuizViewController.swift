@@ -4,6 +4,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     func didLoadDataFromServer() {
         activityIndicator.isHidden = true
         questionFactory?.requestNextQuestion()
+        imageView.layer.borderColor = UIColor.clear.cgColor
+        imageView.layer.borderWidth = 0
     }
     
     func didFailToLoadData(with error: Error) {
@@ -87,14 +89,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private func showNextQuestionOrResults() {
         if currentQuestionIndex == questionsAmount - 1 {
             showFinalResults()
-            imageView.layer.borderColor = nil
             noButton.isEnabled = true
             yesButton.isEnabled = true
             
         } else {
             currentQuestionIndex += 1
             questionFactory?.requestNextQuestion()
-            imageView.layer.borderColor = nil
             noButton.isEnabled = true
             yesButton.isEnabled = true
         }
