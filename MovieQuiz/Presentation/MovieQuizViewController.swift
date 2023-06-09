@@ -12,6 +12,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         showNetworkError(message: error.localizedDescription)
     }
     
+    
     @IBOutlet weak private var noButton: UIButton!
     @IBOutlet weak private var yesButton: UIButton!
     @IBOutlet weak private var imageView: UIImageView!
@@ -87,14 +88,20 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     private func showNextQuestionOrResults() {
+        activityIndicator.isHidden = true
         if currentQuestionIndex == questionsAmount - 1 {
             showFinalResults()
+            imageView.layer.borderColor = UIColor.clear.cgColor
+            imageView.layer.borderWidth = 0
             noButton.isEnabled = true
             yesButton.isEnabled = true
             
         } else {
+            
             currentQuestionIndex += 1
             questionFactory?.requestNextQuestion()
+            imageView.layer.borderColor = UIColor.clear.cgColor
+            imageView.layer.borderWidth = 0
             noButton.isEnabled = true
             yesButton.isEnabled = true
         }
@@ -109,6 +116,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         imageView.layer.borderWidth = 8
         imageView.layer.borderColor = isCorrect ? UIColor.ysGreen.cgColor : UIColor.ysRed.cgColor
         imageView.layer.cornerRadius = 20
+        activityIndicator.isHidden = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.showNextQuestionOrResults()
         }
@@ -125,7 +133,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         let viewModel = convert(model: question)
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
+            self?.noButton.isEnabled = true
+            self?.yesButton.isEnabled = true
         }
+        
     }
     
     private func showFinalResults(){
@@ -169,11 +180,13 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
                                     buttonText: "Попробовать еще раз",
                                     buttonAction: { [weak self] in
             guard let self = self else { return }
+           
             
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
-            self.questionFactory?.requestNextQuestion()
             self.questionFactory?.loadData()
+            
+            
             
         }
         )
