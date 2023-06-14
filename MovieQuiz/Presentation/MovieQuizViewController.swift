@@ -4,6 +4,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     func didLoadDataFromServer() {
         activityIndicator.isHidden = true
         questionFactory?.requestNextQuestion()
+        imageView.layer.borderColor = UIColor.clear.cgColor
+        imageView.layer.borderWidth = 0
     }
     
     func didFailToLoadData(with error: Error) {
@@ -38,7 +40,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     @IBOutlet weak private var labelQuestion: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
-    
     
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
@@ -90,7 +91,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         activityIndicator.isHidden = true
         if currentQuestionIndex == questionsAmount - 1 {
             showFinalResults()
-            imageView.layer.borderColor = nil
+            imageView.layer.borderColor = UIColor.clear.cgColor
+            imageView.layer.borderWidth = 0
             noButton.isEnabled = true
             yesButton.isEnabled = true
             
@@ -98,11 +100,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             
             currentQuestionIndex += 1
             questionFactory?.requestNextQuestion()
-            imageView.layer.borderColor = nil
+            imageView.layer.borderColor = UIColor.clear.cgColor
+            imageView.layer.borderWidth = 0
             noButton.isEnabled = true
             yesButton.isEnabled = true
-            
-            
         }
     }
     
@@ -132,8 +133,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         let viewModel = convert(model: question)
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
-            //self?.noButton.isEnabled = true
-            //self?.yesButton.isEnabled = true
+            self?.noButton.isEnabled = true
+            self?.yesButton.isEnabled = true
         }
         
     }
@@ -183,9 +184,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
-            //self.noButton.isEnabled = false
-            //self.yesButton.isEnabled = false
-            self.questionFactory?.requestNextQuestion()
             self.questionFactory?.loadData()
             
             
