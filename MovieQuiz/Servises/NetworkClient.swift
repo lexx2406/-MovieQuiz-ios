@@ -25,12 +25,13 @@ struct NetworkClient: NetworkRouting {
                 handler(.failure(error))
                 return
             }
+          
             if let response = response as? HTTPURLResponse,
-               response.statusCode < 200 && response.statusCode >= 300 {
+                response.statusCode < 200 && response.statusCode >= 300 {
                 handler(.failure(NetworkError.codeError))
                 return
             }
-            
+         
             guard let data = data else { return }
             handler(.success(data))
         }
@@ -41,11 +42,11 @@ struct NetworkClient: NetworkRouting {
 
 struct StubNetworkClient: NetworkRouting {
     
-    enum TestError: Error {
+    enum TestError: Error { // тестовая ошибка
     case test
     }
     
-    let emulateError: Bool 
+    let emulateError: Bool // этот параметр нужен, чтобы заглушка эмулировала либо ошибку сети, либо успешный ответ
     
     func fetch(url: URL, handler: @escaping (Result<Data, Error>) -> Void) {
         if emulateError {
