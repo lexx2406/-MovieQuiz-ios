@@ -1,9 +1,8 @@
 import UIKit
 
 final class MovieQuizViewController: UIViewController {
-
+    
     private var gamesCount = 0
-    private var statisticService: StatisticService?
     private var alertPresenter: AlertPresenter?
     private var presenter: MovieQuizPresenter!
     
@@ -19,12 +18,11 @@ final class MovieQuizViewController: UIViewController {
         imageView.layer.cornerRadius = 20
         showLoadingIndicator()
         alertPresenter = AlertPresenterImpl(viewController: self)
-        statisticService = StatisticServiceImpl()
         presenter = MovieQuizPresenter(viewController: self)
         
     }
     
-
+    
     
     
     
@@ -34,13 +32,8 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet weak private var textLabel: UILabel!
     @IBOutlet weak private var counterLabel: UILabel!
     @IBAction private func noButtonClicked(_ sender: UIButton) {
-        guard let currentQuestion = presenter.currentQuestion else {
-            return
-        }
-        let givenAnswer = false
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
-        noButton.isEnabled = false
-        yesButton.isEnabled = false
+        presenter.currentQuestion = presenter.currentQuestion
+        presenter.noButtonClicked()
     }
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
@@ -53,7 +46,7 @@ final class MovieQuizViewController: UIViewController {
     
     
     
-   func show(quiz step: QuizStepViewModel) {
+    func show(quiz step: QuizStepViewModel) {
         imageView.image = step.image
         textLabel.text = step.question
         counterLabel.text = step.questionNumber
@@ -66,26 +59,11 @@ final class MovieQuizViewController: UIViewController {
     }
     
     
-   func showAnswerResult(isCorrect: Bool) {
-        if isCorrect {
-            presenter.didAnswer(isCorrectAnswer: isCorrect)
-        }
-        imageView.layer.masksToBounds = true
-        imageView.layer.borderWidth = 8
-        imageView.layer.borderColor = isCorrect ? UIColor.ysGreen.cgColor : UIColor.ysRed.cgColor
-        imageView.layer.cornerRadius = 20
-        activityIndicator.isHidden = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.presenter.showNextQuestionOrResults()
-        }
-    }
-    
-    
     func showFinalResults(){
-        statisticService?.store(correct: presenter.correctAnswers, total: presenter.questionsAmount)
+        presenter.statisticService?.store(correct: presenter.correctAnswers, total: presenter.questionsAmount)
         let alertModel = AlertModel(
             title: "Этот раунд окончен!",
-            message: makeResultMessage(),
+            message: presenter.makeResultMessage(),
             buttonText: "Сыграть ещё раз",
             buttonAction: { [weak self] in
                 self?.presenter.restartGame()
@@ -95,22 +73,8 @@ final class MovieQuizViewController: UIViewController {
         alertPresenter?.show(alertModel: alertModel)
     }
     
-    private func makeResultMessage() -> String {
-        guard let statisticService = statisticService, let bestGame = statisticService.bestGame else {
-            assertionFailure("error message")
-            return ""
-        }
-        
-        let totalPlaysCountLine = "Количество сыгранных квизов: \(statisticService.gamesCount)"
-        let currentGameResultLine = "Ваш результат: \(presenter.correctAnswers)/\(presenter.questionsAmount)"
-        let bestGameInfoLine = "Рекорд: \(bestGame.correct)/\(bestGame.total) (\(bestGame.date.dateTimeString))"
-        let averageAccuracyLine = "Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%"
-        let resultMessage = [currentGameResultLine, totalPlaysCountLine, bestGameInfoLine, averageAccuracyLine].joined(separator: "\n")
-        return resultMessage
-    }
     
-    
-   func showNetworkError(message: String) {
+    func showNetworkError(message: String) {
         activityIndicator.isHidden = true
         
         let alertModel = AlertModel(title: "Ошибка",
@@ -118,7 +82,7 @@ final class MovieQuizViewController: UIViewController {
                                     buttonText: "Попробовать еще раз",
                                     buttonAction: { [weak self] in
             guard let self = self else { return }
-           
+            
             
             self.presenter.restartGame()
             self.presenter.questionFactory?.loadData()
@@ -156,7 +120,15 @@ final class MovieQuizViewController: UIViewController {
         imageView.layer.borderWidth = 0
         
     }
-
+    
+    func highlightImageBorder(isCorrectAnswer: Bool) {
+        imageView.layer.cornerRadius = 20
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderWidth = 8
+        imageView.layer.borderColor = isCorrectAnswer ? UIColor.ysGreen.cgColor : UIColor.ysRed.cgColor
+    }
+    
+    
 }
 
 
