@@ -1,17 +1,40 @@
 import UIKit
 
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
+   
+    
+    func didReceiveNextQuestion(question: QuizQuestion?) {
+        presenter.didReceiveNextQuestion(question: question)
+    }
     
     
     private var correctAnswers = 0
     private var questionFactory: QuestionFactoryProtocol?
-    private var currentQuestion: QuizQuestion?
     private var gamesCount = 0
     private var statisticService: StatisticService?
     private var alertPresenter: AlertPresenter?
     private let presenter = MovieQuizPresenter()
-    //private var currentQuestionIndex = 0
-    //private let questionsAmount: Int = 10
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        noButton.titleLabel?.font = UIFont(name: "YSDisplay-Medium", size: 20)
+        yesButton.titleLabel?.font = UIFont(name: "YSDisplay-Medium", size: 20)
+        textLabel.font = UIFont(name: "YSDisplay-Bold", size: 23)
+        counterLabel.font = UIFont(name: "YSDisplay-Medium", size: 20)
+        labelQuestion.font = UIFont(name: "YSDisplay-Medium", size: 20)
+        imageView.layer.cornerRadius = 20
+        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
+        showLoadingIndicator()
+        questionFactory?.loadData()
+        alertPresenter = AlertPresenterImpl(viewController: self)
+        statisticService = StatisticServiceImpl()
+        presenter.viewController = self
+        
+    }
+    
+    
     
     
     
@@ -34,8 +57,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet weak private var imageView: UIImageView!
     @IBOutlet weak private var textLabel: UILabel!
     @IBOutlet weak private var counterLabel: UILabel!
-    @IBAction private func noButtonClicked(_ sender: Any) {
-        guard let currentQuestion = currentQuestion else {
+    @IBAction private func noButtonClicked(_ sender: UIButton) {
+        guard let currentQuestion = presenter.currentQuestion else {
             return
         }
         let givenAnswer = false
@@ -44,38 +67,17 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         yesButton.isEnabled = false
     }
     
-    @IBAction private func yesButtonClicked(_ sender: Any) {
-        guard let currentQuestion = currentQuestion else {
-            return
-        }
-        let givenAnswer = true
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
-        yesButton.isEnabled = false
-        noButton.isEnabled = false
+    @IBAction private func yesButtonClicked(_ sender: UIButton) {
+        presenter.currentQuestion = presenter.currentQuestion
+        presenter.yesButtonClicked()
     }
     
     @IBOutlet weak private var labelQuestion: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        noButton.titleLabel?.font = UIFont(name: "YSDisplay-Medium", size: 20)
-        yesButton.titleLabel?.font = UIFont(name: "YSDisplay-Medium", size: 20)
-        textLabel.font = UIFont(name: "YSDisplay-Bold", size: 23)
-        counterLabel.font = UIFont(name: "YSDisplay-Medium", size: 20)
-        labelQuestion.font = UIFont(name: "YSDisplay-Medium", size: 20)
-        imageView.layer.cornerRadius = 20
-        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
-        showLoadingIndicator()
-        questionFactory?.loadData()
-        alertPresenter = AlertPresenterImpl(viewController: self)
-        statisticService = StatisticServiceImpl()
-        
-    }
     
-    private func show(quiz step: QuizStepViewModel) {
+   func show(quiz step: QuizStepViewModel) {
         imageView.image = step.image
         textLabel.text = step.question
         counterLabel.text = step.questionNumber
@@ -108,7 +110,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     
-    private func showAnswerResult(isCorrect: Bool) {
+   func showAnswerResult(isCorrect: Bool) {
         if isCorrect {
             correctAnswers += 1
         }
@@ -122,22 +124,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }
     }
     
-    // MARK: - QuestionFactoryDelegate
-    
-    func didReceiveNextQuestion(question: QuizQuestion?) {
-        guard let question = question else {
-            return
-        }
-        
-        currentQuestion = question
-        let viewModel = presenter.convert(model: question)
-        DispatchQueue.main.async { [weak self] in
-            self?.show(quiz: viewModel)
-            self?.noButton.isEnabled = true
-            self?.yesButton.isEnabled = true
-        }
-        
-    }
+   
     
     private func showFinalResults(){
         statisticService?.store(correct: correctAnswers, total: presenter.questionsAmount)
@@ -195,6 +182,23 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     
+    func buttonsAreBlocked() {
+        yesButton.isEnabled = false
+        noButton.isEnabled = false
+    }
+    
+    func buttonsAreActive() {
+        noButton.isEnabled = true
+        yesButton.isEnabled = true
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     /*
@@ -206,7 +210,26 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         
     }
     */
+    //private var currentQuestion: QuizQuestion?
+    //private var currentQuestionIndex = 0
+    //private let questionsAmount: Int = 10
     
+    /*
+     func didReceiveNextQuestion(question: QuizQuestion?) {
+         guard let question = question else {
+             return
+         }
+         
+         presenter.currentQuestion = question
+         let viewModel = presenter.convert(model: question)
+         DispatchQueue.main.async { [weak self] in
+             self?.show(quiz: viewModel)
+             self?.noButton.isEnabled = true
+             self?.yesButton.isEnabled = true
+         }
+         
+     }
+     */
     
     
     
