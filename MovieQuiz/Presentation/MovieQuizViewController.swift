@@ -1,17 +1,11 @@
 import UIKit
 
-final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
-   
-    
-    func didReceiveNextQuestion(question: QuizQuestion?) {
-        presenter.didReceiveNextQuestion(question: question)
-    }
-    
+final class MovieQuizViewController: UIViewController {
 
     private var gamesCount = 0
     private var statisticService: StatisticService?
     private var alertPresenter: AlertPresenter?
-    private let presenter = MovieQuizPresenter()
+    private var presenter: MovieQuizPresenter!
     
     
     override func viewDidLoad() {
@@ -23,31 +17,15 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         counterLabel.font = UIFont(name: "YSDisplay-Medium", size: 20)
         labelQuestion.font = UIFont(name: "YSDisplay-Medium", size: 20)
         imageView.layer.cornerRadius = 20
-        presenter.questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
         showLoadingIndicator()
-        presenter.questionFactory?.loadData()
         alertPresenter = AlertPresenterImpl(viewController: self)
         statisticService = StatisticServiceImpl()
-        presenter.viewController = self
+        presenter = MovieQuizPresenter(viewController: self)
         
     }
     
+
     
-    
-    
-    
-    
-    
-    func didLoadDataFromServer() {
-        activityIndicator.isHidden = true
-        presenter.questionFactory?.requestNextQuestion()
-        imageView.layer.borderColor = UIColor.clear.cgColor
-        imageView.layer.borderWidth = 0
-    }
-    
-    func didFailToLoadData(with error: Error) {
-        showNetworkError(message: error.localizedDescription)
-    }
     
     
     @IBOutlet weak private var noButton: UIButton!
@@ -102,7 +80,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }
     }
     
-   
     
     func showFinalResults(){
         statisticService?.store(correct: presenter.correctAnswers, total: presenter.questionsAmount)
@@ -133,7 +110,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     
-    private func showNetworkError(message: String) {
+   func showNetworkError(message: String) {
         activityIndicator.isHidden = true
         
         let alertModel = AlertModel(title: "Ошибка",
@@ -179,65 +156,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         imageView.layer.borderWidth = 0
         
     }
-    
-    
-    
-    
-    
-    /*
-    private func convert(model: QuizQuestion) -> QuizStepViewModel {
-        QuizStepViewModel(
-            image: UIImage(data: model.image) ?? UIImage(),
-            question: model.text,
-            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
-        
-    }
-    */
-    //private var currentQuestion: QuizQuestion?
-    //private var currentQuestionIndex = 0
-    //private let questionsAmount: Int = 10
-    //private var questionFactory: QuestionFactoryProtocol?
-    //private var correctAnswers = 0
-    
-    
-    
-    /*
-     func didReceiveNextQuestion(question: QuizQuestion?) {
-         guard let question = question else {
-             return
-         }
-         
-         presenter.currentQuestion = question
-         let viewModel = presenter.convert(model: question)
-         DispatchQueue.main.async { [weak self] in
-             self?.show(quiz: viewModel)
-             self?.noButton.isEnabled = true
-             self?.yesButton.isEnabled = true
-         }
-         
-     }
-     */
-    
-    /* private func showNextQuestionOrResults() {
-        activityIndicator.isHidden = true
-        if presenter.isLastQuestion() {
-            showFinalResults()
-            imageView.layer.borderColor = UIColor.clear.cgColor
-            imageView.layer.borderWidth = 0
-            noButton.isEnabled = true
-            yesButton.isEnabled = true
-            
-        } else {
-            
-            presenter.switchToNextQuestion()
-            questionFactory?.requestNextQuestion()
-            imageView.layer.borderColor = UIColor.clear.cgColor
-            imageView.layer.borderWidth = 0
-            noButton.isEnabled = true
-            yesButton.isEnabled = true
-        }
-    }
-    */
+
 }
 
 
