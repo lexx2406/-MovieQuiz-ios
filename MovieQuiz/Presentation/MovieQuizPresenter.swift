@@ -14,6 +14,8 @@ final class MovieQuizPresenter {
     var currentQuestion: QuizQuestion?
     weak var viewController: MovieQuizViewController?
     var questionFactory: QuestionFactoryProtocol?
+    var correctAnswers = 0
+    
     
     func yesButtonClicked() {
         didAnswer(isYes: true)
@@ -49,8 +51,10 @@ final class MovieQuizPresenter {
             currentQuestionIndex == questionsAmount - 1
         }
         
-        func resetQuestionIndex() {
+        func restartGame() {
             currentQuestionIndex = 0
+            correctAnswers = 0
+            
         }
         
         func switchToNextQuestion() {
@@ -88,8 +92,10 @@ final class MovieQuizPresenter {
         }
     }
     
-    
-    
+    func didAnswer(isCorrectAnswer: Bool){
+        correctAnswers += 1
+        
+    }
     
     
     
