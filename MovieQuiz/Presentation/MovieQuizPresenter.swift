@@ -13,7 +13,7 @@ final class MovieQuizPresenter {
     private var currentQuestionIndex: Int = 0
     var currentQuestion: QuizQuestion?
     weak var viewController: MovieQuizViewController?
-    
+    var questionFactory: QuestionFactoryProtocol?
     
     func yesButtonClicked() {
         didAnswer(isYes: true)
@@ -71,6 +71,27 @@ final class MovieQuizPresenter {
         }
         
     }
+    
+    func showNextQuestionOrResults() {
+        viewController?.indicatorIsHidden()
+        if isLastQuestion() {
+            viewController?.showFinalResults()
+            viewController?.clearBorder()
+            viewController?.buttonsAreActive()
+            
+        } else {
+            
+            switchToNextQuestion()
+            questionFactory?.requestNextQuestion()
+            viewController?.clearBorder()
+            viewController?.buttonsAreActive()
+        }
+    }
+    
+    
+    
+    
+    
     
     
     
