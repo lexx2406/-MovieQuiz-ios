@@ -8,6 +8,7 @@
 import UIKit
 
 final class MovieQuizPresenter: QuestionFactoryDelegate {
+   
     
     let statisticService: StatisticService!
     var questionFactory: QuestionFactoryProtocol?
@@ -18,7 +19,6 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     private var currentQuestionIndex: Int = 0
     
     
-    
     init(viewController: MovieQuizViewController) {
         self.viewController = viewController
         statisticService = StatisticServiceImpl()
@@ -26,6 +26,8 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         questionFactory?.loadData()
         viewController.showLoadingIndicator()
     }
+    
+    
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
         guard let question = question else {
@@ -41,7 +43,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     
     
     func didLoadDataFromServer() {
-        viewController?.indicatorIsHidden()
+        viewController?.hideLoadingIndicator()
         questionFactory?.requestNextQuestion()
     }
     
@@ -100,9 +102,9 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     
     
     func showNextQuestionOrResults() {
-        viewController?.indicatorIsHidden()
+        viewController?.hideLoadingIndicator()
         if isLastQuestion() {
-            viewController?.showFinalResults()
+            viewController?.makeResult()
             viewController?.clearBorder()
             viewController?.buttonsAreActive()
             
@@ -146,6 +148,15 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
             self.showNextQuestionOrResults()
         }
     }
+    init(viewController: MovieQuizViewControllerProtocol) {
+            self.viewController = viewController as? MovieQuizViewController
+            
+            statisticService = StatisticServiceImpl()
+            
+            questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
+            questionFactory?.loadData()
+            viewController.showLoadingIndicator()
+        }
     
     
 }

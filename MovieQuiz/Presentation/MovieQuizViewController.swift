@@ -1,7 +1,8 @@
 import UIKit
 
-final class MovieQuizViewController: UIViewController {
+final class MovieQuizViewController: UIViewController, MovieQuizViewControllerProtocol{
     
+
     private var gamesCount = 0
     private var alertPresenter: AlertPresenter?
     private var presenter: MovieQuizPresenter!
@@ -43,6 +44,20 @@ final class MovieQuizViewController: UIViewController {
     
     @IBOutlet weak private var labelQuestion: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    /*
+    struct QuizResultsViewModel {
+        let title: String
+        let text: String
+        let buttonText: String
+    }
+    
+    struct QuizStepViewMode {
+        let title: String
+        let text: String
+        let buttonText: String
+    }
+    */
+    
     
     
     
@@ -52,14 +67,7 @@ final class MovieQuizViewController: UIViewController {
         counterLabel.text = step.questionNumber
     }
     
-    struct QuizResultsViewModel {
-        let title: String
-        let text: String
-        let buttonText: String
-    }
-    
-    
-    func showFinalResults(){
+    func makeResult() {
         presenter.statisticService?.store(correct: presenter.correctAnswers, total: presenter.questionsAmount)
         let alertModel = AlertModel(
             title: "Этот раунд окончен!",
@@ -111,7 +119,7 @@ final class MovieQuizViewController: UIViewController {
         activityIndicator.startAnimating()
     }
     
-    func indicatorIsHidden() {
+    func hideLoadingIndicator() {
         activityIndicator.isHidden = true
     }
     
@@ -127,7 +135,6 @@ final class MovieQuizViewController: UIViewController {
         imageView.layer.borderWidth = 8
         imageView.layer.borderColor = isCorrectAnswer ? UIColor.ysGreen.cgColor : UIColor.ysRed.cgColor
     }
-    
     
 }
 
