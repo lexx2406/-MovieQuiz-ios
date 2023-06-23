@@ -8,7 +8,7 @@
 import UIKit
 
 final class MovieQuizPresenter: QuestionFactoryDelegate {
-   
+    
     
     let statisticService: StatisticService!
     var questionFactory: QuestionFactoryProtocol?
@@ -17,17 +17,6 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     var correctAnswers = 0
     let questionsAmount: Int = 10
     private var currentQuestionIndex: Int = 0
-    
-    
-    init(viewController: MovieQuizViewController) {
-        self.viewController = viewController
-        statisticService = StatisticServiceImpl()
-        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
-        questionFactory?.loadData()
-        viewController.showLoadingIndicator()
-    }
-    
-    
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
         guard let question = question else {
@@ -149,14 +138,14 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         }
     }
     init(viewController: MovieQuizViewControllerProtocol) {
-            self.viewController = viewController as? MovieQuizViewController
-            
-            statisticService = StatisticServiceImpl()
-            
-            questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
-            questionFactory?.loadData()
-            viewController.showLoadingIndicator()
-        }
+        self.viewController = viewController as? MovieQuizViewController
+        
+        statisticService = StatisticServiceImpl()
+        
+        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
+        questionFactory?.loadData()
+        viewController.showLoadingIndicator()
+    }
     
     
 }

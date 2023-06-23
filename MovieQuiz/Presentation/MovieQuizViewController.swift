@@ -2,7 +2,7 @@ import UIKit
 
 final class MovieQuizViewController: UIViewController, MovieQuizViewControllerProtocol{
     
-
+    
     private var gamesCount = 0
     private var alertPresenter: AlertPresenter?
     private var presenter: MovieQuizPresenter!
@@ -44,21 +44,6 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     
     @IBOutlet weak private var labelQuestion: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
-    /*
-    struct QuizResultsViewModel {
-        let title: String
-        let text: String
-        let buttonText: String
-    }
-    
-    struct QuizStepViewMode {
-        let title: String
-        let text: String
-        let buttonText: String
-    }
-    */
-    
-    
     
     
     func show(quiz step: QuizStepViewModel) {
